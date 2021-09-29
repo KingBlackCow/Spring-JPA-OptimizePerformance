@@ -24,7 +24,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    //@JsonIgnore //회원조회시 회원정보만 출력하고 싶은데 주문정보까지 같이 포함될경우 ignore를 통해 무시함
+    @JsonIgnore //회원조회시 회원정보만 출력하고 싶은데 주문정보까지 같이 포함될경우 ignore를 통해 무시함
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 }
