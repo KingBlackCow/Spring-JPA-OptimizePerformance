@@ -151,4 +151,19 @@ public class OrderRepository {
                 " join o.delivery d", OrderSimpleQueryDto.class)
                 .getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        //jpa 에서의 distinct 는 Order의 id값이 같을 경우 중복 제거도 포함
+        //distinct 단점: 페이징 불가능
+        //일대다 페치조인에서는 페이징이 안된다.
+        //컬렉션 페치조인은 1개만 사용할 수 있다. 컬렉션 둘이상에 페치조인을 사용하면 안된다.
+        return em.createQuery("select distinct o from Order o"+
+                " join fetch o.member m "+
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi"+
+                " join fetch oi.item i", Order.class)
+//                .setFirstResult(1)
+//                .setMaxResults(100) distinct의 단점 페이징 불가능
+                .getResultList();
+    }
 }
