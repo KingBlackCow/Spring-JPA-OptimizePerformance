@@ -75,6 +75,12 @@ public class OrderApiController {
         return orderQueryDtos;
     }
 
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5(){
+
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
     @Getter //없으면 Propery에러남
     static class OrderDto{
 
